@@ -1,0 +1,9 @@
+mongodb:
+  #url: 'mongodb://18.178.12.57'
+  url: 'mongodb://localhost'
+  port: 27017
+  db1: 
+    name: vueMemo
+    collection:
+      memo: memo
+      panel: panel

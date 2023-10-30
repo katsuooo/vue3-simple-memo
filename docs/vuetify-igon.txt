@@ -1,0 +1,6 @@
+vue add vuetify
+
+vuetify iconの表示
+npm install --save @mdi/font
+
+

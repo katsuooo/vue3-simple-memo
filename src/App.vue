@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import memo1 from '@/views/memo1.vue'
+import memo2 from '@/views/memo2.vue'
+import memo3 from '@/views/memo3.vue'
+
+
 </script>
 
 <template>
