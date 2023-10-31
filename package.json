@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite --host --port 5100",
+    "dev": "vite --host --port 5200",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "build-only": "vite build",
