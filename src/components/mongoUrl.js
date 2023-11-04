@@ -7,11 +7,16 @@
 /**
  * get url (gen mongodb url)
  */
+/*
 function getUrl(){
-    //return io.request.connection.remoteAddress
     var web_server = window.location.host
+    console.log(web_server)
     var backend = web_server.split(':')[0] + ':5002'
     return backend
+}
+*/
+function getUrl(){
+    return 'http://localhost:5002/'
 }
 
 export default {
