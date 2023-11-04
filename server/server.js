@@ -117,5 +117,5 @@ mongoStaffSche.readStaffSche(date, socket)
 */
 httpServer.listen(5002);
 
-console.log('\nnode-server running ..... \n')
+console.log('\nnode-server running ..... port 5002\n')
 
