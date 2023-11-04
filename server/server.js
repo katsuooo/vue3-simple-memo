@@ -50,7 +50,7 @@ function memoEvent(socket){
     socket.on('UPSERT_ONE', (obj) => {
         const db = MONGOINFO.db1.name;
         const col = obj.col
-        mongoAsync.upsertOne(db, col, socket, obj.memo);
+        mongoAsync.upsertOne(db, col, socket, obj.d);
     });
     /**
      * add new memo
@@ -58,11 +58,12 @@ function memoEvent(socket){
      * after write, emit _id
      */
     socket.on('ADD_NEW_ONE', (obj) => {
-        console.log('add-new-one', obj.memo)
-        console.log(obj.collectionName, typeof(obj.collectionName))
+        console.log('add-new-one', obj.d)
+        console.log(obj.col, typeof(obj.col))
+        console.log('obj-', obj)
         const db = MONGOINFO.db1.name;
         const col = obj.col
-        mongoAsync.addNewOne(db, col, socket, obj.memo);
+        mongoAsync.addNewOne(db, col, socket, obj.d);
     });
     /**
      * detete one memo by id

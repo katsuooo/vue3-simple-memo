@@ -100,9 +100,9 @@
         const shaped = shapeMemo(this.memos[cardIndex]);
         console.log('edit:', this.collectionName, typeof(this.collectionName))
         if(this.memos[cardIndex]._id === 'new'){
-          this.socket.emit('ADD_NEW_ONE', {d:shaped, col:this.collectinName});
+          this.socket.emit('ADD_NEW_ONE', {d:shaped, col:this.collectionName});
         }else{
-          this.socket.emit('UPSERT_ONE', {d:shaped, col:this.collectinName});
+          this.socket.emit('UPSERT_ONE', {d:shaped, col:this.collectionName});
         }
       },
       /**

@@ -1,6 +1,6 @@
 {
   "name": "vue3-simple-memo",
-  "version": "0.0.0",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
     "dev": "vite --host --port 5200",
