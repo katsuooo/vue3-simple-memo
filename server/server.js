@@ -115,7 +115,7 @@ const date = { year: 2023, month: 8, date: 3, day: '木' }
 const socket = {}
 mongoStaffSche.readStaffSche(date, socket)
 */
-httpServer.listen(5001);
+httpServer.listen(5002);
 
 console.log('\nnode-server running ..... \n')
 

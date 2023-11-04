@@ -9,7 +9,7 @@ import memo3 from '@/views/memo3.vue'
 import userList from './user/user_list.json'
 
 var user = ref(null)
-function checkUserName(name){
+function checkUserName(name:String){
   console.log(name)
   let judge = false
   userList.userName.forEach((u) => {
@@ -21,7 +21,7 @@ function checkUserName(name){
   return judge
 }
 const router = useRouter()
-function SET_USER(name){
+function SET_USER(name:String){
   console.log('user-set', name)
   if(checkUserName(name)){
     user.value = name
