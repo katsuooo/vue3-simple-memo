@@ -83,13 +83,13 @@ function memoEvent(socket){
         //console.log(param);
         const db = MONGOINFO.db1.name;
         const col = obj.col
-        if(obj.param.filter === ''){
-            readLimit(obj.param.num, socket, obj.col)
-        }else if(filterAnalisys.checkDate(obj.param.filter)){
+        if(obj.filter === ''){
+            readLimit(obj.num, socket, obj.col)
+        }else if(filterAnalisys.checkDate(obj.filter)){
             console.log('date string')
-            mongoAsync.filterFromDate(db, col, obj.param, socket)
+            mongoAsync.filterFromDate(db, col, obj, socket)
         }else{
-            mongoAsync.filteredRead(db, col, obj.param, socket);
+            mongoAsync.filteredRead(db, col, obj, socket);
         }
     });
 };
