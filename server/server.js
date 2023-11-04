@@ -16,69 +16,9 @@ const MONGOINFO = require('./config.js').MONGOINFO;
 const filterAnalisys = require('./filterAnalisys.js')
 console.log(MONGOINFO)
 
-io.on("connection", (socket) => {
-  console.log('server-connect')
-  socket.on('TEST', () => {
-    console.log('com-TEST recieve')
-  })
-  socket.on('READ_STAFF_SCHE', (date) => {
-    if (date === null){
-      return
-    }
-    console.log('read-staff-sche', date)
-    mongoStaffSche.readStaffSche(date, socket)
-  })
-  socket.on( 'READLIMIT', (num) => {
-    readLimit(num, socket)
-  });
-  /**
-   * 
-   */
-  socket.on('UPSERT_ONE', (memo) => {
-    const db = MONGOINFO.db1.name;
-    const col = MONGOINFO.db1.collection.memo;
-    mongoAsync.upsertOne(db, col, socket, memo);
-  });
-  /**
-  * add new memo
-  * 
-  * after write, emit _id
-  */
-  socket.on('ADD_NEW_ONE', (memo) => {
-    console.log('add-new-one', memo)
-    const db = MONGOINFO.db1.name;
-    const col = MONGOINFO.db1.collection.memo;
-    mongoAsync.addNewOne(db, col, socket, memo);
-  });
-  /**
-  * detete one memo by id
-  */
-  socket.on('DELETE_ONE', (id) => {
-    console.log('delete_one', id)
-    const db = MONGOINFO.db1.name;
-    const col = MONGOINFO.db1.collection.memo;
-    mongoAsync.deleteOne(db, col, socket, id);
-  });
-/**
- * filter string
- * 
- * param : {filter: filter-string, num: read_size}
- */
-socket.on('FILTER_STRING', (param) => {
-    //console.log(param);
-    const db = MONGOINFO.db1.name;
-    const col = MONGOINFO.db1.collection.memo;
-    if(param.filter === ''){
-        readLimit(param.num, socket)
-    }else if(filterAnalisys.checkDate(param.filter)){
-        console.log('date string')
-        mongoAsync.filterFromDate(db, col, param, socket)
-    }else{
-        mongoAsync.filteredRead(db, col, param, socket);
-    }
-});
-  /*
-*/
+
+  
+
 
 
 /**
@@ -87,9 +27,9 @@ socket.on('FILTER_STRING', (param) => {
  * @param {*} num 
  * @param {*} socket 
  */
-function readLimit(num, socket){
+function readLimit(num, socket, collectionName){
     const db = MONGOINFO.db1.name;
-    const col = MONGOINFO.db1.collection.memo;
+    const col = collectionName
     mongoAsync.readLimit(db, col, num, socket);
 }
 /**
@@ -101,61 +41,71 @@ function memoEvent(socket){
     /**
      * read limit
      */
-    socket.on( 'READLIMIT', (num) => {
-        readLimit(num, socket)
+    socket.on('READLIMIT', (obj) => {
+        readLimit(obj.num, socket, obj.col)
     });
     /**
      * 
      */
-    socket.on('UPSERT_ONE', (memo) => {
+    socket.on('UPSERT_ONE', (obj) => {
         const db = MONGOINFO.db1.name;
-        const col = MONGOINFO.db1.collection.memo;
-        mongoAsync.upsertOne(db, col, socket, memo);
+        const col = obj.col
+        mongoAsync.upsertOne(db, col, socket, obj.memo);
     });
     /**
      * add new memo
      * 
      * after write, emit _id
      */
-    socket.on('ADD_NEW_ONE', (memo) => {
-        console.log('add-new-one', memo)
+    socket.on('ADD_NEW_ONE', (obj) => {
+        console.log('add-new-one', obj.memo)
+        console.log(obj.collectionName, typeof(obj.collectionName))
         const db = MONGOINFO.db1.name;
-        const col = MONGOINFO.db1.collection.memo;
-        mongoAsync.addNewOne(db, col, socket, memo);
+        const col = obj.col
+        mongoAsync.addNewOne(db, col, socket, obj.memo);
     });
     /**
      * detete one memo by id
      */
-    socket.on('DELETE_ONE', (id) => {
+    socket.on('DELETE_ONE', (obj) => {
         console.log('delete_one', id)
         const db = MONGOINFO.db1.name;
-        const col = MONGOINFO.db1.collection.memo;
-        mongoAsync.deleteOne(db, col, socket, id);
+        const col = obj.col
+        mongoAsync.deleteOne(db, col, socket, obj.id);
     });
     /**
      * filter string
      * 
      * param : {filter: filter-string, num: read_size}
      */
-    socket.on('FILTER_STRING', (param) => {
+    socket.on('FILTER_STRING', (obj) => {
         //console.log(param);
         const db = MONGOINFO.db1.name;
-        const col = MONGOINFO.db1.collection.memo;
-        if(param.filter === ''){
-            readLimit(param.num, socket)
-        }else if(filterAnalisys.checkDate(param.filter)){
+        const col = obj.col
+        if(obj.param.filter === ''){
+            readLimit(obj.param.num, socket, obj.col)
+        }else if(filterAnalisys.checkDate(obj.param.filter)){
             console.log('date string')
-            mongoAsync.filterFromDate(db, col, param, socket)
+            mongoAsync.filterFromDate(db, col, obj.param, socket)
         }else{
-            mongoAsync.filteredRead(db, col, param, socket);
+            mongoAsync.filteredRead(db, col, obj.param, socket);
         }
     });
 };
-
+/**
+ * socket main
+ */
+io.on("connection", (socket) => {
+    console.log('coonnect')
+    socket.on('TEST', () => {
+      console.log('com-TEST recieve')
+    })
+    memoEvent(socket)
+})
 
 module.exports = memoEvent;
 
-});
+
 
 //test
 /*

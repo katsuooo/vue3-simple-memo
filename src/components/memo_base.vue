@@ -1,22 +1,10 @@
 <!-- memo / bg, outline selected by :color -->
 <template>
-    <!--
-    <div id="app" class='f9'>-->
     <div class="f9">
-      <!--
-      <h1 style='margin-left:7%;'>v-memo</h1>
-      -->
-      <!--<div class='row'>
-        <div class='form-group col-12'>-->
+      <div>{{ collectionName }}</div>
         <div class="form-group" style='display:block'>
           <input type='text' class='form-control form-control-sm' id='filter' placeholder='filter input...' :value='this.filter' @input="filterWrite($event.target)"/>
         </div>
-        <!--
-        <div class='col-4 d-grid' style='padding-left: 0px;'>
-          <button class='btn btn-sm btn-block btn-outline-secondary' @click='addBtnOn'>add new memo</button>
-        </div>
-        -->
-      <!--</div>-->
       <transition-group name='list-complete' tag='div'>
         <card class='list-complete-item' v-for='(item, index) in this.memos' :key=item.viewIndex v-bind:cardIndex='index' v-bind:memo='item' v-bind:cardStyle='cardStyle' v-on:editing_event_parent='editOnParent' v-on:delete_event_parent='deleteOn'/>
       </transition-group>
@@ -85,6 +73,9 @@
       card,
       addBtn
     },
+    props:{
+      collectionName: String,
+    }, 
     data: () => ({
       memos: Array,
       socket: io(mongoUrl.getUrl(), {transports: ['websocket']}),
@@ -107,10 +98,11 @@
         this.memos[cardIndex].text = newText;
         this.memos[cardIndex].datetime = getDatetime();
         const shaped = shapeMemo(this.memos[cardIndex]);
+        console.log('edit:', this.collectionName, typeof(this.collectionName))
         if(this.memos[cardIndex]._id === 'new'){
-          this.socket.emit('ADD_NEW_ONE', shaped);
+          this.socket.emit('ADD_NEW_ONE', {d:shaped, col:this.collectinName});
         }else{
-          this.socket.emit('UPSERT_ONE', shaped);
+          this.socket.emit('UPSERT_ONE', {d:shaped, col:this.collectinName});
         }
       },
       /**
@@ -133,7 +125,7 @@
        */
       deleteOn: function(cardIndex){
         if (this.memos[cardIndex]._id !== 'new'){
-          this.socket.emit('DELETE_ONE', this.memos[cardIndex]._id);
+          this.socket.emit('DELETE_ONE', {d:this.memos[cardIndex]._id, col:this.collectionName});
         }
         this.memos.splice(cardIndex, 1);
       },
@@ -152,7 +144,7 @@
           return
         }
         this.filter = target.value;
-        this.socket.emit('FILTER_STRING', {filter: this.filter, num: this.read_size});  
+        this.socket.emit('FILTER_STRING', {filter: this.filter, num: this.read_size, col:this.collectionName});  
       }
     },
     mounted(){
@@ -188,7 +180,7 @@
     beforeMount(){
       //this.memos = [{datetime:'', text:'', _id:''}];
       this.memos = []
-      this.socket.emit('READLIMIT', this.read_size);
+      this.socket.emit('READLIMIT', {num:this.read_size, col:this.collectionName});
       this.cardStyle = this.$route.params.color
     },
     watch:{

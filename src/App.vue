@@ -1,26 +1,63 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { ref } from 'vue'
+//import HelloWorld from './components/HelloWorld.vue'
+import userLogin from '@/views/userLogin.vue'
 import memo1 from '@/views/memo1.vue'
 import memo2 from '@/views/memo2.vue'
 import memo3 from '@/views/memo3.vue'
+import userList from './user/user_list.json'
+
+var user = ref(null)
+function checkUserName(name){
+  console.log(name)
+  let judge = false
+  userList.userName.forEach((u) => {
+    if(u === name){
+      judge = true
+    }
+  })
+  console.log('result',judge)
+  return judge
+}
+const router = useRouter()
+function SET_USER(name){
+  console.log('user-set', name)
+  if(checkUserName(name)){
+    user.value = name
+    router.push({name:'memo1'})  //memo1に遷移
+  }
+}
+
 
 
 </script>
 
 <template>
-  <header>
-     <div class="wrapper">
+  <header v-if="user !== null">
+    <!--<div><span>user:{{ user }}</span></div>-->
+    <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
+        <!--<RouterLink to="/">login</RouterLink>-->
+        <!--
         <RouterLink to="/memo1">memo1</RouterLink>
         <RouterLink to="/memo2">memo2</RouterLink>
-        <RouterLink to="/memo3">memo3</RouterLink>
+        <RouterLink to="/memo3">memo3</RouterLink>-->
+        <RouterLink 
+          class='btn btn-sm btn-outline-info' 
+          :to="{name:'memo1'}"
+          :props=true
+          >memo1</RouterLink>
+        <RouterLink class='btn btn-sm btn-outline-success' :to="{name:'memo2'}" :props=true>memo2</RouterLink>
+        <RouterLink class='btn btn-sm btn-outline-danger' :to="{name:'memo3'}" :props=true>memo3</RouterLink>
       </nav>
     </div>
   </header>
-
-  <RouterView />
+  <userLogin
+        v-on:setUser='SET_USER'
+        :user="user"
+      />
+  <RouterView :userName="user"/>
 </template>
 
 <style scoped>
@@ -55,10 +92,11 @@ nav a {
   border-left: 1px solid var(--color-border);
 }
 
+/*
 nav a:first-of-type {
   border: 0;
 }
-
+*/
 @media (min-width: 1024px) {
   header {
     display: flex;

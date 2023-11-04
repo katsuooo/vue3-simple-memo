@@ -1,6 +1,8 @@
 <template>
   <div class="memo1">
-    <memo_base />
+    <memo_base 
+      :collectionName="userName+'_memo3'"
+    />
   </div>
 </template>
 <script>
@@ -10,6 +12,9 @@ import memo_base from '@/components/memo_base.vue'
 export default {
   components:{
     memo_base
+  },
+  props:{
+    userName:String
   },
   setup() {
     

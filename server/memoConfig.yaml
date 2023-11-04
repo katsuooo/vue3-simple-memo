@@ -3,7 +3,7 @@ mongodb:
   url: 'mongodb://localhost'
   port: 27017
   db1: 
-    name: vueMemo
+    name: vueSimpleMemo
     collection:
       memo: memo
       panel: panel
