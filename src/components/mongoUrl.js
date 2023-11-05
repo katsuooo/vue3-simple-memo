@@ -16,7 +16,7 @@ function getUrl(){
 }
 */
 function getUrl(){
-    return 'http://localhost:5002/'
+    return 'http://localhost:5150/'
 }
 
 export default {
