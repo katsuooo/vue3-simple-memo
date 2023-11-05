@@ -7,6 +7,7 @@ import memo1 from '@/views/memo1.vue'
 import memo2 from '@/views/memo2.vue'
 import memo3 from '@/views/memo3.vue'
 import userList from './user/user_list.json'
+import fullCalendar from '@/components/FullCalendar.vue'
 
 var user = ref(null)
 function checkUserName(name:String){
@@ -49,7 +50,8 @@ function SET_USER(name:String){
           :props=true
           >memo1</RouterLink>
         <RouterLink class='btn btn-sm btn-outline-success' :to="{name:'memo2'}" :props=true>memo2</RouterLink>
-        <RouterLink class='btn btn-sm btn-outline-danger' :to="{name:'memo3'}" :props=true>memo3</RouterLink>
+        <RouterLink class='btn btn-sm btn-outline-warning' :to="{name:'memo3'}" :props=true>memo3</RouterLink>
+        <RouterLink class='btn btn-sm btn-outline-danger' :to="{name:'fullCalendar'}" :props=true>calendar</RouterLink>
       </nav>
     </div>
   </header>

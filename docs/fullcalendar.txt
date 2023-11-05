@@ -1,0 +1,6 @@
+install
+npm install @fullcalendar/vue3 @fullcalendar/core @fullcalendar/daygrid
+
+yarn add @fullcalendar/vue3
+yarn add @fullcalendar/core
+yarn add @fullcalendar/daygrid
