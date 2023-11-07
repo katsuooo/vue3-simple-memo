@@ -9,9 +9,9 @@
         <card class='list-complete-item' v-for='(item, index) in this.memos' :key=item.viewIndex v-bind:cardIndex='index' v-bind:memo='item' v-bind:cardStyle='cardStyle' v-on:editing_event_parent='editOnParent' v-on:delete_event_parent='deleteOn'/>
       </transition-group>
       <div class='d-grid'>
-      <button class='btn btn-sm btn-block btn-outline-danger' @click='nextData'>next10</button>
+      <button  v-if="this.memos.length >= 10" class='btn btn-sm btn-block btn-outline-danger' @click='nextData'>next10</button>
       </div>
-      <addBtn 
+      <addBtn
         v-on:FAB_ON="addBtnOn"
       />
     </div>
@@ -125,7 +125,7 @@
        */
       deleteOn: function(cardIndex){
         if (this.memos[cardIndex]._id !== 'new'){
-          this.socket.emit('DELETE_ONE', {d:this.memos[cardIndex]._id, col:this.collectionName});
+          this.socket.emit('DELETE_ONE', {id:this.memos[cardIndex]._id, col:this.collectionName});
         }
         this.memos.splice(cardIndex, 1);
       },
@@ -165,6 +165,10 @@
           buf.push({_id: m._id, datetime: m.datetime, text: jointext, viewIndex: this.viewIndexMaster++});
         });
         this.memos = buf;
+        //memoなしのときはaddをたたく
+        if(this.memos.length === 0){
+          this.addBtnOn()
+        }
           }),
           /**
            * new mongo id set

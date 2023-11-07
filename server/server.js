@@ -69,7 +69,7 @@ function memoEvent(socket){
      * detete one memo by id
      */
     socket.on('DELETE_ONE', (obj) => {
-        console.log('delete_one', id)
+        console.log('delete_one', obj.id)
         const db = MONGOINFO.db1.name;
         const col = obj.col
         mongoAsync.deleteOne(db, col, socket, obj.id);
