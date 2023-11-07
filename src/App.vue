@@ -45,13 +45,13 @@ function SET_USER(name:String){
         <RouterLink to="/memo2">memo2</RouterLink>
         <RouterLink to="/memo3">memo3</RouterLink>-->
         <RouterLink 
-          class='btn btn-sm btn-outline-info' 
+          class='selbtn btn btn-sm btn-outline-info' 
           :to="{name:'memo1'}"
           :props=true
           >memo1</RouterLink>
-        <RouterLink class='btn btn-sm btn-outline-success' :to="{name:'memo2'}" :props=true>memo2</RouterLink>
-        <RouterLink class='btn btn-sm btn-outline-warning' :to="{name:'memo3'}" :props=true>memo3</RouterLink>
-        <RouterLink class='btn btn-sm btn-outline-danger' :to="{name:'fullCalendar'}" :props=true>calendar</RouterLink>
+        <RouterLink class='selbtn btn btn-sm btn-outline-success' :to="{name:'memo2'}" :props=true>memo2</RouterLink>
+        <RouterLink class='selbtn btn btn-sm btn-outline-warning' :to="{name:'memo3'}" :props=true>memo3</RouterLink>
+        <RouterLink class='selbtn btn btn-sm btn-outline-danger' :to="{name:'fullCalendar'}" :props=true>calendar</RouterLink>
       </nav>
     </div>
   </header>
@@ -77,7 +77,7 @@ nav {
   width: 100%;
   font-size: 12px;
   text-align: center;
-  margin-top: 2rem;
+  /*margin-top: 2rem;*/
 }
 
 nav a.router-link-exact-active {
@@ -90,8 +90,13 @@ nav a.router-link-exact-active:hover {
 
 nav a {
   display: inline-block;
-  padding: 0 1rem;
+  /*padding: 0 1rem;*/
+  padding: 0 0;
   border-left: 1px solid var(--color-border);
+}
+.selbtn{
+  padding:1px 1px;
+  margin:1px;
 }
 
 /*
@@ -118,11 +123,15 @@ nav a:first-of-type {
 
   nav {
     text-align: left;
-    margin-left: -1rem;
+    /*margin-left: -1rem;*/
     font-size: 1rem;
 
-    padding: 1rem 0;
-    margin-top: 1rem;
+    /*padding: 1rem 0;*/
+    /*margin-top: 1rem;*/
+  }
+  .selbtn{
+  padding:0;
   }
 }
+
 </style>
