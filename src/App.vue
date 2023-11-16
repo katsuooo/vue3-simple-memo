@@ -9,6 +9,7 @@ import memo3 from '@/views/memo3.vue'
 import userList from './user/user_list.json'
 import fullCalendar from '@/components/FullCalendar.vue'
 
+
 var user = ref(null)
 function checkUserName(name:String){
   console.log(name)
@@ -22,6 +23,11 @@ function checkUserName(name:String){
   return judge
 }
 const router = useRouter()
+/**
+ * 
+ * ボタンハンドラ
+ * @param name 
+ */
 function SET_USER(name:String){
   console.log('user-set', name)
   if(checkUserName(name)){
@@ -29,12 +35,19 @@ function SET_USER(name:String){
     router.push({name:'memo1'})  //memo1に遷移
   }
 }
+function EXIT_USER(name:String){
+  console.log('exit-user')
+  user.value = null
+  router.push({name:'userLogin'})  //memo1に遷移
+}
 
 
 
 </script>
 
 <template>
+  <div>{{ user }}</div>
+  <session />
   <header v-if="user !== null">
     <!--<div><span>user:{{ user }}</span></div>-->
     <div class="wrapper">
@@ -44,6 +57,7 @@ function SET_USER(name:String){
         <RouterLink to="/memo1">memo1</RouterLink>
         <RouterLink to="/memo2">memo2</RouterLink>
         <RouterLink to="/memo3">memo3</RouterLink>-->
+        <RouterLink :to="{name:'userLogin'}"></RouterLink>
         <RouterLink 
           class='selbtn btn btn-sm btn-outline-info' 
           :to="{name:'memo1'}"
@@ -57,6 +71,7 @@ function SET_USER(name:String){
   </header>
   <userLogin
         v-on:setUser='SET_USER'
+        v-on:exitUser="EXIT_USER"
         :user="user"
       />
   <RouterView :userName="user"/>

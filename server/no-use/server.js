@@ -11,9 +11,9 @@ const io = new Server(httpServer, {
 });
 
 //const mongoStaffSche = require('./mongoStaffSche.js')
-const mongoAsync = require('./mongoAsync.js');
-const MONGOINFO = require('./config.js').MONGOINFO;
-const filterAnalisys = require('./filterAnalisys.js')
+const mongoAsync = require('../mongoAsync.js');
+const MONGOINFO = require('../config.js').MONGOINFO;
+const filterAnalisys = require('../filterAnalisys.js')
 console.log(MONGOINFO)
 
 
