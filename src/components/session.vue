@@ -1,5 +1,5 @@
 <template>
-    <div v-if="true">
+    <div v-if="false">
       <div v-if="loggedIn">
         <p>Hello, {{ username }}!</p>
         <button @click="logout">Logout</button>
