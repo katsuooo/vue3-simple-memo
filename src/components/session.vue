@@ -69,6 +69,7 @@ async function server_fetch(url){
         //await fetch('http://localhost:5150/login', { method: 'POST' });
         console.log('login-btn-on', userName, typeof(userName))
         const url = 'http://' + mongoUrl.getUrl()
+        console.log('url', url)
         await fetch(url + '/login', { 
           method: 'POST',
           credentials: 'include', // クッキーの送信を許可

@@ -30,9 +30,9 @@ app.use(session({
 }));
 
 
-
 const corsOptions = {
-    origin: 'http://localhost:5200', // クライアントのオリジン
+    //origin: 'http://localhost:5200', // クライアントのオリジン
+    origin: 'http://kdesign.sytes.net:5200', // クライアントのオリジン
     credentials: true, // クッキーを使用する場合に必要
 };
 // corsミドルウェアの使用

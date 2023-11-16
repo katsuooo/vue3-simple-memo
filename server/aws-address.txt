@@ -1,0 +1,14 @@
+
+yarn dev起動時のメッセージ
+  VITE v4.4.9  ready in 1209 ms
+
+  ➜  Local:   http://localhost:5200/
+  ➜  Network: http://10.0.1.65:5200/
+  ➜  press h to show help
+
+
+session情報へのアクセス/expressサーバへのアクセスは
+http://kdesign.sytes.net:5200
+になる
+
+

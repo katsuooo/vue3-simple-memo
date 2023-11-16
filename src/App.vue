@@ -46,7 +46,6 @@ function EXIT_USER(name:String){
 </script>
 
 <template>
-  <div>{{ user }}</div>
   <session />
   <header v-if="user !== null">
     <!--<div><span>user:{{ user }}</span></div>-->
