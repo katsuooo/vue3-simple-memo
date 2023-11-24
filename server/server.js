@@ -29,12 +29,31 @@ app.use(session({
   saveUninitialized: true
 }));
 
-
+/*
 const corsOptions = {
     //origin: 'http://localhost:5200', // クライアントのオリジン
-    origin: 'http://kdesign.sytes.net:5200', // クライアントのオリジン
+    //origin: 'http://kdesign.sytes.net:5200', // クライアントのオリジン
+    origin:['http://localhost:5200','http://kdesign.sytes.net:5200'],
     credentials: true, // クッキーを使用する場合に必要
 };
+*/
+let corsOptions = {}
+if (process.env.NODE_ENV === 'development') {
+  corsOptions = {
+    origin: 'http://localhost:5200', // クライアントのオリジン
+    credentials: true, // クッキーを使用する場合に必要
+  };  
+}else{
+  corsOptions = {
+    origin: 'http://kdesign.sytes.net:5200', // クライアントのオリジン
+    credentials: true, // クッキーを使用する場合に必要
+  };  
+}
+
+console.log(process.env.NODE_ENV)
+console.log(corsOptions.origin)
+
+
 // corsミドルウェアの使用
 app.use(cors(corsOptions));
 // 他のコードは省略...

@@ -1,9 +1,9 @@
 <!-- memo / bg, outline selected by :color -->
 <template>
     <div class="f9">
-      <div>{{ collectionName }}</div>
+      <div>user:&nbsp;&nbsp;{{ collectionName }}</div>
         <div class="form-group" style='display:block'>
-          <input type='text' class='form-control form-control-sm' id='filter' placeholder='filter input...' :value='this.filter' @input="filterWrite($event.target)"/>
+          <input type='text' class='form-control form-control-sm' id='filter' placeholder='検索...' :value='this.filter' @input="filterWrite($event.target)"/>
         </div>
       <transition-group name='list-complete' tag='div'>
         <card class='list-complete-item' v-for='(item, index) in this.memos' :key=item.viewIndex v-bind:cardIndex='index' v-bind:memo='item' v-bind:cardStyle='cardStyle' v-on:editing_event_parent='editOnParent' v-on:delete_event_parent='deleteOn'/>
@@ -11,6 +11,7 @@
       <div class='d-grid'>
       <button  v-if="this.memos.length >= 10" class='btn btn-sm btn-block btn-outline-danger' @click='nextData'>next10</button>
       </div>
+      <span style="background-color:rgba(224, 198, 142, 0.54);color:rgba(50,50,50,0.75);">memoを書くと⊕ボタンで追加できます</span>
       <addBtn
         v-on:FAB_ON="addBtnOn"
       />

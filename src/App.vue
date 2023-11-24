@@ -10,7 +10,7 @@ import userList from './user/user_list.json'
 import fullCalendar from '@/components/FullCalendar.vue'
 
 
-var user = ref(null)
+var user = ref<String>('null')
 function checkUserName(name:String){
   console.log(name)
   let judge = false
@@ -37,7 +37,7 @@ function SET_USER(name:String){
 }
 function EXIT_USER(name:String){
   console.log('exit-user')
-  user.value = null
+  user.value = 'null'
   router.push({name:'userLogin'})  //memo1に遷移
 }
 
@@ -47,27 +47,26 @@ function EXIT_USER(name:String){
 
 <template>
   <session />
-  <header v-if="user !== null">
+  <header v-if="user !== 'null'">
     <!--<div><span>user:{{ user }}</span></div>-->
     <div class="wrapper">
-      <nav>
+      <nav class="topnav">
         <!--<RouterLink to="/">login</RouterLink>-->
         <!--
         <RouterLink to="/memo1">memo1</RouterLink>
         <RouterLink to="/memo2">memo2</RouterLink>
         <RouterLink to="/memo3">memo3</RouterLink>-->
-        <RouterLink :to="{name:'userLogin'}"></RouterLink>
+        <RouterLink :to="{name:'userLogin'}" style="display:none"></RouterLink>
         <RouterLink 
-          class='selbtn btn btn-sm btn-outline-info' 
           :to="{name:'memo1'}"
           :props=true
           >memo1</RouterLink>
-        <RouterLink class='selbtn btn btn-sm btn-outline-success' :to="{name:'memo2'}" :props=true>memo2</RouterLink>
-        <RouterLink class='selbtn btn btn-sm btn-outline-warning' :to="{name:'memo3'}" :props=true>memo3</RouterLink>
-        <RouterLink class='selbtn btn btn-sm btn-outline-danger' :to="{name:'fullCalendar'}" :props=true>calendar</RouterLink>
+        <RouterLink :to="{name:'memo2'}" :props=true>memo2</RouterLink>
+        <RouterLink :to="{name:'memo3'}" :props=true>memo3</RouterLink>
+        <RouterLink :to="{name:'fullCalendar'}" :props=true>calendar</RouterLink>
       </nav>
     </div>
-  </header>
+      </header>
   <userLogin
         v-on:setUser='SET_USER'
         v-on:exitUser="EXIT_USER"
@@ -94,15 +93,26 @@ nav {
   /*margin-top: 2rem;*/
 }
 
+
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  /*color: var(--color-text);*/
+  /*color: var(--app-theme);*/
+  /*background-color: rgba(192,197,194,0.9)*/
+  /*background-color: var(--bs-card-cap-bg);*/
+  background-color: rgba(33,37,41,0.03);
 }
 
 nav a.router-link-exact-active:hover {
-  background-color: transparent;
+  /*background-color: transparent;*/
+  /*background-color: rgba(192,197,194,0.9)*/
+  /*background-color: rgb(223, 180, 64);*/
+  /*background-color: var(--bs-card-cap-bg);*/
+  background-color: rgb(33,37,41,0.28);
+  color: var(--bs-secondary-color)!important;
 }
 
-nav a {
+
+nav RouterLink {
   display: inline-block;
   /*padding: 0 1rem;*/
   padding: 0 0;
@@ -118,6 +128,60 @@ nav a:first-of-type {
   border: 0;
 }
 */
+.text-muted {
+    --bs-text-opacity: 1;
+    color: var(--bs-secondary-color)!important;
+}
+
+/**
+  navbar-style
+
+*/
+/* Add a black background color to the top navigation */
+.topnav {
+  /*background-color: var(--app-theme);*/
+  background-color: rgb(var(--v-theme-info));
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a,
+.topnav span {
+  float: left;
+  /*color: #000;*/
+  /*color:rgba(60, 57, 57, 0.929);*/
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 14px;
+}
+.topnav span{
+    text-align: right; 
+}
+
+/* Change the color of links on hover */
+/*
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+*/
+/* Add a color to the active/current link */
+/*
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+*/
+
+
+
+
+
+
+
+
 @media (min-width: 1024px) {
   header {
     display: flex;
@@ -140,12 +204,14 @@ nav a:first-of-type {
     /*margin-left: -1rem;*/
     font-size: 1rem;
 
-    /*padding: 1rem 0;*/
+    padding: 1rem 0;
     /*margin-top: 1rem;*/
+    
   }
+  /*
   .selbtn{
   padding:0;
-  }
+  }*/
 }
 
 </style>

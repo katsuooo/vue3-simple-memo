@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <div v-if="user===null">
+    <div v-if="user==='null'">
     <h1>login</h1>
     <p style="color:#808080">nick nameを入力してください</p>
       <div class="input-group mb-3">
@@ -37,16 +37,16 @@ import session from '@/components/session.vue'
 
 const props = defineProps(['user'])
 
-var nickName = ref('')
-const emit = defineEmits(['setUser'])
+var nickName = ref<String>('')
+const emit = defineEmits(['setUser', 'exitUser'])
 
 
-const session2 = ref(null)
+const session2 = ref<String>('null')
 function nickNameInput(){
   console.log('nick-name-set', nickName.value)
   //emit('setUser', nickName.value)
   if(session2.value.login(nickName.value)){
-    //emit('setUser', nickName.value)
+    emit('setUser', nickName.value)
   }
   //console.log('session-fail')
 }
