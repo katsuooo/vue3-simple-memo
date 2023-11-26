@@ -1,5 +1,5 @@
 <template>
-  <div class="memo1">
+  <div class="memo1" v-if="userName !== 'null'">
     <memo_base 
       :collectionName="userName+'_memo1'"
     />

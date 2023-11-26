@@ -4,3 +4,17 @@ npm install @fullcalendar/vue3 @fullcalendar/core @fullcalendar/daygrid
 yarn add @fullcalendar/vue3
 yarn add @fullcalendar/core
 yarn add @fullcalendar/daygrid
+
+
+yarn add@vullcalendar/vue
+がvue3対応なので、入れ替える
+
+yarn add @fullcalendar/timegrid
+yarn add @fullcalendar/interaction
+
+
+fullcalendar/core/locales-all.js
+import l41 from './locales/ja.js';
+
+
+

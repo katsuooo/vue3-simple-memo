@@ -4,7 +4,7 @@ import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { INITIAL_EVENTS, createEventId } from './event-utils'
+import { INITIAL_EVENTS, createEventId } from '../event-utils'
 // 日本語のロケールファイルをインポート
 import ja from '@fullcalendar/core/locales/ja';
 //import jaLocale from '../../public/locale/ja.json';
@@ -32,10 +32,9 @@ export default defineComponent({
         selectMirror: true,
         dayMaxEvents: true,
         weekends: true,
-        //select: this.handleDateSelect,
+        select: this.handleDateSelect,
         eventClick: this.handleEventClick,
         eventsSet: this.handleEvents,
-        dateClick: this.handleDateSelect,
         /* you can update a remote database when these fire:
         eventAdd:
         eventChange:
@@ -54,7 +53,6 @@ export default defineComponent({
       this.calendarOptions.weekends = !this.calendarOptions.weekends // update a property
     },
     handleDateSelect(selectInfo) {
-      console.log('select-info', selectInfo)
       let title = prompt('Please enter a new title for your event')
       let calendarApi = selectInfo.view.calendar
 
@@ -72,7 +70,8 @@ export default defineComponent({
         calendarApi.addEvent({
           id: createEventId(),
           title,
-          start: selectInfo.date,
+          start: selectInfo.startStr,
+          end: selectInfo.endStr,
           allDay: false
         })
       }
@@ -82,7 +81,6 @@ export default defineComponent({
       console.log('start:', selectInfo.startStr)
       console.log('end:', selectInfo.endStr)
       console.log('allDay:', selectInfo.allDay)
-      //this.currentEvents.push({ title: 'event 2', date: '2023-11-02' })
     },
     handleEventClick(clickInfo) {
       if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
@@ -122,17 +120,13 @@ export default defineComponent({
       }
       this.$refs.calendar.getApi().unselect(); // Clear date selection
     },
-    handleEvents(events) {
-      console.log('day-click')
-      this.currentEvents = events
-    },
   }
 })
 
 </script>
 
 <template>
-  <div class='demo-app' v-if="userName !== 'null'">
+  <div class='demo-app'>
     <!--
     <div class='demo-app-sidebar'>
         

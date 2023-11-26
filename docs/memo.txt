@@ -1,0 +1,71 @@
+
+<a aria-label="2023年11月26日" id="fc-dom-143" class="fc-daygrid-day-number">26日</a>
+
+
+{
+  "event": {
+    "allDay": false,
+    "title": "Meeting",
+    "start": "2023-11-26T05:15:52.071+09:00"
+  },
+  "view": {
+    "type": "dayGridMonth",
+    "dateEnv": {
+      "timeZone": "local",
+      "canComputeOffset": true,
+      "calendarSystem": {},
+      "locale": {
+        "codeArg": "ja",
+        "codes": [
+          "ja"
+        ],
+        "week": {
+          "dow": 0,
+          "doy": 4
+        },
+        "simpleNumberFormat": "[object Intl.NumberFormat]",
+        "options": {
+          "buttonText": {
+            "prev": "前",
+            "next": "次",
+            "today": "今日",
+            "year": "年",
+            "month": "月",
+            "week": "週",
+            "day": "日",
+            "list": "予定リスト"
+          },
+          "weekText": "週",
+          "allDayText": "終日",
+          "noEventsText": "表示する予定はありません",
+          "direction": "ltr",
+          "weekTextLong": "Week",
+          "closeHint": "Close",
+          "timeHint": "Time",
+          "eventHint": "Event"
+        }
+      },
+      "weekDow": 0,
+      "weekDoy": 4,
+      "weekText": "週",
+      "weekTextLong": "Week",
+      "cmdFormatter": null,
+      "defaultSeparator": " - "
+    }
+  },
+  "timeText": "5:15",
+  "textColor": "",
+  "backgroundColor": "",
+  "borderColor": "",
+  "isDraggable": true,
+  "isEndResizable": true,
+  "isMirror": false,
+  "isStart": true,
+  "isEnd": true,
+  "isPast": false,
+  "isFuture": false,
+  "isToday": true,
+  "isSelected": false,
+  "isDragging": false,
+  "isResizing": false
+}
