@@ -1,4 +1,18 @@
 
+
+<a tabindex="0" class="fc-event fc-event-draggable fc-event-resizable fc-event-start
+ fc-event-end fc-event-past fc-daygrid-event fc-daygrid-dot-event"><b>0時</b><i>もじもじ</i></a>
+
+
+
+
+
+
+
+
+
+
+
 <a aria-label="2023年11月26日" id="fc-dom-143" class="fc-daygrid-day-number">26日</a>
 
 

@@ -43,10 +43,30 @@ export default defineComponent({
         */
         dayCellContent: this.customDayCellContent,
               // locales オプションを指定して日本語のロケールを設定
-        locale: ja
+        locale: ja,
+        
+        eventTimeFormat: { // like '14:30:00'
+          meridiem: false
+        }
+        /*
+                  hour: '2-digit',
+          minute: '2-digit',
+                eventTimeFormat: { // like '14:30:00'
+          hour: false,
+          minute: false,
+          second: false,
+          meridiem: false
+        }*/
       },
-      currentEvents: []
-
+      currentEvents: [],
+      //eventRender: this.handleEventRender,
+      eventRender: function(info) {
+    // イベントの時間要素を非表示にする
+    const timeElement = info.el.querySelector('.fc-time');
+    if (timeElement) {
+      timeElement.style.display = 'none';
+    }
+  },
     }
   },
   methods: {
@@ -69,6 +89,10 @@ export default defineComponent({
           end: selectInfo.endStr,
           allDay: selectInfo.allDay
         })*/
+        /*
+        start,endはdate型
+        時間表示をやめる
+        */
         calendarApi.addEvent({
           id: createEventId(),
           title,
@@ -126,6 +150,25 @@ export default defineComponent({
       console.log('day-click')
       this.currentEvents = events
     },
+    /*
+    handleEventRender(info) {
+      // イベントの時間要素を非表示にする
+      info.el.querySelector('.fc-time').style.display = 'none';
+    },*/
+    handleEventRender(info) {
+      console.log('event-render')
+      // イベントの時間要素を非表示にする
+      const timeElement = info.el.querySelector('.fc-time');
+      if (timeElement) {
+        timeElement.style.display = 'none';
+      }
+
+      // イベントのタイトルに時間を使用する
+      const titleElement = info.el.querySelector('.fc-title');
+      if (titleElement) {
+        titleElement.innerHTML = `<b>${info.event.start.getHours()}時</b><i>${info.event.title}</i>`;
+      }
+    },
   }
 })
 
@@ -133,48 +176,17 @@ export default defineComponent({
 
 <template>
   <div class='demo-app' v-if="userName !== 'null'">
-    <!--
-    <div class='demo-app-sidebar'>
-        
-      <div class='demo-app-sidebar-section'>
-        <h2>Instructions</h2>
-        <ul>
-          <li>Select dates and you will be prompted to create a new event</li>
-          <li>Drag, drop, and resize events</li>
-          <li>Click an event to delete it</li>
-        </ul>
-      </div>
-      <div class='demo-app-sidebar-section'>
-        <label>
-          <input
-            type='checkbox'
-            :checked='calendarOptions.weekends'
-            @change='handleWeekendsToggle'
-          />
-          toggle weekends
-        </label>
-      </div>
-      
-      <div class='demo-app-sidebar-section'>
-        <h2>All Events ({{ currentEvents.length }})</h2>
-        <ul>
-          <li v-for='event in currentEvents' :key='event.id'>
-            <b>{{ event.startStr }}</b>
-            <i>{{ event.title }}</i>
-          </li>
-        </ul>
-      </div>
-    </div>
-    -->
     <div class='demo-app-main'>
       <FullCalendar
         class='demo-app-calendar'
         :options='calendarOptions'
         @eventAdd="handleEventAdd"
         @select="handleSelect"
+        @eventRender="handleEventRender"
       >
         <template v-slot:eventContent='arg'>
-          <b>{{ arg.timeText }}</b>
+          <!--
+          <b>{{ arg.timeText }}</b>-->
           <i>{{ arg.event.title }}</i>
         </template>
       </FullCalendar>
