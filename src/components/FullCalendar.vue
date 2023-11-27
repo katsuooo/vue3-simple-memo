@@ -9,6 +9,7 @@ import { INITIAL_EVENTS, createEventId } from './event-utils'
 import ja from '@fullcalendar/core/locales/ja';
 //import jaLocale from '../../public/locale/ja.json';
 import calendar_style from './calendar_style.js'
+//import calendar_click from './calendar_click.js'
 
 export default defineComponent({
   components: {
@@ -44,7 +45,7 @@ export default defineComponent({
         eventRemove:
         */
         dayCellContent: this.customDayCellContent,
-              // locales オプションを指定して日本語のロケールを設定
+        // locales オプションを指定して日本語のロケールを設定
         locale: ja,
         
         eventTimeFormat: { // like '14:30:00' no view in template
@@ -52,32 +53,38 @@ export default defineComponent({
           minute: '2-digit',
           meridiem: false
         },
-        /*
-
-                eventTimeFormat: { // like '14:30:00'
-          hour: false,
-          minute: false,
-          second: false,
-          meridiem: false
-        }*/
-        /*aspectRetio: 1.5,*/
-        height: 600
+        height: 600,
+        views: {
+          dayGridMonth: { // name of view
+            //titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
+            // other view-specific options here
+          },
+          dayGrid: {
+            // options apply to dayGridMonth, dayGridWeek, and dayGridDay views
+          },
+          timeGrid: {
+            // options apply to timeGridWeek and timeGridDay views
+            //titleFormat: { month: '2-digit', day: '2-digit' }
+          },
+          week: {
+            // options apply to dayGridWeek and timeGridWeek views
+            titleFormat: { month: '2-digit', day: '2-digit' }
+          },
+          day: {
+            // options apply to dayGridDay and timeGridDay views
+            titleFormat: { month: '2-digit', day: '2-digit' }
+          }
+        }
       },
       currentEvents: [],
-      //eventRender: this.handleEventRender,
-      /*
-      eventRender: function(info) {
-        // イベントの時間要素を非表示にする
-        const timeElement = info.el.querySelector('.fc-time');
-        if (timeElement) {
-          timeElement.style.display = 'none';
-        }
-      },*/
     }
   },
   mounted(){
     console.log('mounted')
     calendar_style.btnSmall()
+    //calendar_click.clickEvent()
+    var element = document.getElementsByClassName('fullCalendar')
+    console.log('get-view', element)
   },
   methods: {
     handleWeekendsToggle() {
@@ -124,9 +131,6 @@ export default defineComponent({
         clickInfo.event.remove()
       }
     },
-    handleEvents(events) {
-      this.currentEvents = events
-    },
     customDayCellContent({ date, view }) {
       const dayElement = document.createElement('div');
       dayElement.textContent = date.getDate(); // Customize the content as needed
@@ -158,29 +162,31 @@ export default defineComponent({
       this.$refs.calendar.getApi().unselect(); // Clear date selection
     },
     handleEvents(events) {
-      console.log('day-click')
+      console.log('day-click',events)
       this.currentEvents = events
+      calendar_style.btnSmall()   //top buttonの表示変更
     },
     /*
     handleEventRender(info) {
       // イベントの時間要素を非表示にする
       info.el.querySelector('.fc-time').style.display = 'none';
     },*/
-    /*
     handleEventRender(info) {
       console.log('event-render')
       // イベントの時間要素を非表示にする
       const timeElement = info.el.querySelector('.fc-time');
       if (timeElement) {
+        console.log('time-element')
         timeElement.style.display = 'none';
       }
 
       // イベントのタイトルに時間を使用する
+      /*
       const titleElement = info.el.querySelector('.fc-title');
       if (titleElement) {
         titleElement.innerHTML = `<b>${info.event.start.getHours()}時</b><i>${info.event.title}</i>`;
-      }
-    },*/
+      }*/
+    },
   }
 })
 

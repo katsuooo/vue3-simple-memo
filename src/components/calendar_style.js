@@ -5,6 +5,7 @@
  * 
  * fc-prev-button fc-button fc-button-primary
  */
+import calendar_view from './calendar_view.js'
 /**
  * 
  * header タイトルの変更
@@ -17,7 +18,14 @@ function titleSmall(){
     var element = document.getElementsByClassName('fc-toolbar-title')
     console.log('title-elm', element[0])
     console.log('font-size', element[0].style.fontSize )
-    element[0].style.fontSize = '21px'
+    //viewにより、タイトル文字列をかえる
+    //element[0].textContent = '今'
+    //console.log('view-mode',calendar_view.getViewMode())
+    if(calendar_view.getViewMode() === 'WEEK'){
+        element[0].style.fontSize = '18px'
+    }else{
+        element[0].style.fontSize = '21px'
+    }
 }
 /**
  * 
