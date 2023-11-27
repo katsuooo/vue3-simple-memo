@@ -8,6 +8,8 @@ import { INITIAL_EVENTS, createEventId } from './event-utils'
 // 日本語のロケールファイルをインポート
 import ja from '@fullcalendar/core/locales/ja';
 //import jaLocale from '../../public/locale/ja.json';
+import calendar_style from './calendar_style.js'
+
 export default defineComponent({
   components: {
     FullCalendar,
@@ -45,33 +47,41 @@ export default defineComponent({
               // locales オプションを指定して日本語のロケールを設定
         locale: ja,
         
-        eventTimeFormat: { // like '14:30:00'
-          meridiem: false
-        }
-        /*
-                  hour: '2-digit',
+        eventTimeFormat: { // like '14:30:00' no view in template
+          hour: '2-digit',
           minute: '2-digit',
+          meridiem: false
+        },
+        /*
+
                 eventTimeFormat: { // like '14:30:00'
           hour: false,
           minute: false,
           second: false,
           meridiem: false
         }*/
+        /*aspectRetio: 1.5,*/
+        height: 600
       },
       currentEvents: [],
       //eventRender: this.handleEventRender,
+      /*
       eventRender: function(info) {
-    // イベントの時間要素を非表示にする
-    const timeElement = info.el.querySelector('.fc-time');
-    if (timeElement) {
-      timeElement.style.display = 'none';
+        // イベントの時間要素を非表示にする
+        const timeElement = info.el.querySelector('.fc-time');
+        if (timeElement) {
+          timeElement.style.display = 'none';
+        }
+      },*/
     }
   },
-    }
+  mounted(){
+    console.log('mounted')
+    calendar_style.btnSmall()
   },
   methods: {
     handleWeekendsToggle() {
-      this.calendarOptions.weekends = !this.calendarOptions.weekends // update a property
+      this.calendar.getOptions.weekends = !this.calendarOptions.weekends // update a property
     },
     handleDateSelect(selectInfo) {
       console.log('select-info', selectInfo)
@@ -92,12 +102,13 @@ export default defineComponent({
         /*
         start,endはdate型
         時間表示をやめる
+        allday=trueとし、bg-colorを設定する
         */
         calendarApi.addEvent({
           id: createEventId(),
           title,
           start: selectInfo.date,
-          allDay: false
+          allDay: true
         })
       }
       console.log('input-ok')
@@ -120,7 +131,7 @@ export default defineComponent({
       const dayElement = document.createElement('div');
       dayElement.textContent = date.getDate(); // Customize the content as needed
       dayElement.style.width = '100%'; // Set the width to 100% to expand the cell
-      dayElement.style.height = '100%'; // Set the height to 100% to expand the cell
+      dayElement.style.height = '100%'; // heightはcalendarOptons.heightで設定
 
       return { domNodes: [dayElement] };
     },
@@ -155,6 +166,7 @@ export default defineComponent({
       // イベントの時間要素を非表示にする
       info.el.querySelector('.fc-time').style.display = 'none';
     },*/
+    /*
     handleEventRender(info) {
       console.log('event-render')
       // イベントの時間要素を非表示にする
@@ -168,7 +180,7 @@ export default defineComponent({
       if (titleElement) {
         titleElement.innerHTML = `<b>${info.event.start.getHours()}時</b><i>${info.event.title}</i>`;
       }
-    },
+    },*/
   }
 })
 

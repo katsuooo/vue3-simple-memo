@@ -12,7 +12,7 @@
           <v-btn
             v-show="model"
             class="mt-auto pointer-events-initial"
-            color="info"
+            color="rgba(160,216,239,0.99)"
             elevation="8"
             icon="mdi-plus"
             size="large"
@@ -56,5 +56,6 @@
     
     .v-application__wrap{
       min-height: 0dvh !important;
+      /*background-color: var(--app-theme);*/
     }
   </style>

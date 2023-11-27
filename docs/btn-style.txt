@@ -1,0 +1,17 @@
+
+ボタンサイズの変更
+
+
+fc-prev-button
+fc-next-button
+fc-today-button
+
+fc-dayGridMonth-button
+fc-timeGridWeek-button
+fc-timeGridDay-button
+
+var element = getElementByClassName
+element.addClass()
+
+
+<button type="button" title="前" aria-pressed="false" class="fc-prev-button fc-button fc-button-primary btn btn-sm"><span class="fc-icon fc-icon-chevron-left"></span></button>

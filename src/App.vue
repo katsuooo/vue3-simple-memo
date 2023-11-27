@@ -139,8 +139,8 @@ nav a:first-of-type {
 */
 /* Add a black background color to the top navigation */
 .topnav {
-  /*background-color: var(--app-theme);*/
-  background-color: rgb(var(--v-theme-info));
+  background-color: var(--app-theme);
+  /*background-color: rgb(var(--v-theme-info));*/
   overflow: hidden;
 }
 
