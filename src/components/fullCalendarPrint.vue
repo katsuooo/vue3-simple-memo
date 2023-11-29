@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import fullcalendar from '@/components/fullcalendar.vue'
+import fullcalendar from '@/components/fullCalendar.vue'
 import domtoimage from 'dom-to-image-more';
 
 async function downloadImage(){
