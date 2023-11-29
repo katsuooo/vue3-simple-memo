@@ -92,7 +92,7 @@ export default defineComponent({
     },
     handleDateSelect(selectInfo) {
       console.log('select-info', selectInfo)
-      let title = prompt('Please enter a new title for your event')
+      let title = prompt('スケジュール入力')
       let calendarApi = selectInfo.view.calendar
 
       calendarApi.unselect() // clear date selection
