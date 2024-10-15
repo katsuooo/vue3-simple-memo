@@ -7,7 +7,7 @@ import memo1 from '@/views/memo1.vue'
 import memo2 from '@/views/memo2.vue'
 import memo3 from '@/views/memo3.vue'
 import userList from './user/user_list.json'
-import fullCalendar from '@/components/FullCalendarPrint.vue'
+import fullCalendar from '@/components/fullCalendarPrint.vue'
 
 
 var user = ref<String>('null')
